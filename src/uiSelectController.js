@@ -111,8 +111,6 @@ uis.controller('uiSelectCtrl',
     if (!ctrl.disabled  && !ctrl.open) {
       if(!avoidReset) _resetSearchInput();
 
-      $scope.$broadcast('uis:activate');
-
       ctrl.open = true;
 
       ctrl.activeIndex = ctrl.activeIndex >= ctrl.items.length ? 0 : ctrl.activeIndex;
@@ -163,8 +161,12 @@ uis.controller('uiSelectCtrl',
   };
 
   ctrl.focusSearchInput = function (initSearchValue) {
-    ctrl.search = initSearchValue || ctrl.search;
+    if (initSearchValue) {
+      ctrl.search = initSearchValue.val() || ctrl.search;
+      initSearchValue.val('');
+    }
     ctrl.searchInput[0].focus();
+    $scope.$broadcast('uis:activate');
   };
 
   ctrl.findGroupByName = function(name) {
@@ -423,7 +425,7 @@ uis.controller('uiSelectCtrl',
             ctrl.close(skipFocusser);
             return;
           }
-        }        
+        }
         _resetSearchInput();
         $scope.$broadcast('uis:select', item);
 

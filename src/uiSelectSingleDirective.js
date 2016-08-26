@@ -112,8 +112,7 @@ uis.directive('uiSelectSingle', ['$timeout','$compile', function($timeout, $comp
           return;
         }
 
-        $select.activate(focusser.val()); //User pressed some regular key, so we pass it to the search input
-        focusser.val('');
+        $select.activate(focusser); //User pressed some regular key, so we pass it to the search input
         scope.$digest();
 
       });
