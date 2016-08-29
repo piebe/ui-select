@@ -78,11 +78,15 @@ uis.directive('uiSelectSingle', ['$timeout','$compile', function($timeout, $comp
           $select.focus = true;
         });
       });
+      
       focusser.bind("blur", function(){
         scope.$evalAsync(function(){
           $select.focus = false;
+          $select.initSearch(focusser.val());
+          focusser.val('');
         });
       });
+      
       focusser.bind("keydown", function(e){
 
         if (e.which === KEY.BACKSPACE) {
@@ -112,7 +116,7 @@ uis.directive('uiSelectSingle', ['$timeout','$compile', function($timeout, $comp
           return;
         }
 
-        $select.activate(focusser); //User pressed some regular key, so we pass it to the search input
+        $select.activate(); //User pressed some regular key, so we activate the search input
         scope.$digest();
 
       });

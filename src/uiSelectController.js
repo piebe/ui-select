@@ -129,13 +129,13 @@ uis.controller('uiSelectCtrl',
             // Only focus input after the animation has finished
             ctrl.$animate.off('removeClass', searchInput[0], animateHandler);
             $timeout(function () {
-              ctrl.focusSearchInput(initSearchValue);
+              ctrl.focusSearchInput();
             });
           } else if (phase === 'close') {
             // Only focus input after the animation has finished
             ctrl.$animate.off('enter', container[0], animateHandler);
             $timeout(function () {
-              ctrl.focusSearchInput(initSearchValue);
+              ctrl.focusSearchInput();
             });
           }
         };
@@ -147,7 +147,7 @@ uis.controller('uiSelectCtrl',
         }
       } else {
         $timeout(function () {
-          ctrl.focusSearchInput(initSearchValue);
+          ctrl.focusSearchInput();
           if(!ctrl.tagging.isActivated && ctrl.items.length > 1) {
             _ensureHighlightVisible();
           }
@@ -160,11 +160,11 @@ uis.controller('uiSelectCtrl',
     }
   };
 
-  ctrl.focusSearchInput = function (initSearchValue) {
-    if (initSearchValue) {
-      ctrl.search = initSearchValue.val() || ctrl.search;
-      initSearchValue.val('');
-    }
+  ctrl.initSearch = function(searchValue) {
+    ctrl.search = searchValue || ctrl.search;
+  };
+
+  ctrl.focusSearchInput = function () {
     ctrl.searchInput[0].focus();
     $scope.$broadcast('uis:activate');
   };
