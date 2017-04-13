@@ -166,6 +166,7 @@ uis.controller('uiSelectCtrl',
 
   ctrl.focusSearchInput = function () {
     ctrl.searchInput[0].focus();
+    ctrl.focusser.trigger('blur'); // in all browsers but IE the focus causes a blur, for IEs sake force a blur
     $scope.$broadcast('uis:activate');
   };
 
